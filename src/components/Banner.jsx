@@ -1,23 +1,24 @@
 import React from 'react'
-import { assets } from '../assets/assets_frontend/assets'
 import { useNavigate } from 'react-router-dom'
+
 const Banner = () => {
-    const navigate=useNavigate()
+  const navigate = useNavigate()
 
   return (
-    <div className='flex bg-primary rounded-lg px-6 sm:px-10 md:px-14 lg:px-12 my-20 md:mx-10'>
-        <div className='flex-1 py-8 sm:py-10 md:py-16 lg:py-24 lg:pl-5'>
-            <div className='text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-white'>
-                <p>Book Appointments</p>
-                <p className='mt-4'>with 50+ doctors </p>
-            </div>
-            <button onClick={()=>{navigate('/login');scrollTo(0,0)}} className='bg-white text-sm sm:text-base text-gray-600 px-8 py-3 rounded-full mt-5'>Create Account</button>
-        </div>
-        <div className='hidden md:block md:w-1/3 lg:w-[370px] relative'>
-            <img className='w-full absolute bottom-0 right-0 max-w-md' src={assets.appointment_img} alt="" />
-        </div>
-      
-    </div>
+    <section className="flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-indigo-200 to-indigo-400 rounded-3xl shadow-2xl px-8 py-16 md:py-24 mb-14 transition-all duration-300">
+      <h2 className="text-3xl md:text-5xl font-extrabold text-indigo-900 mb-4 text-center leading-tight">
+        Book Appointments Effortlessly
+      </h2>
+      <p className="text-lg md:text-xl text-gray-800 mb-8 max-w-2xl text-center font-medium opacity-95">
+        Join 50+ trusted doctors and thousands of patients experiencing seamless healthcare booking with <span className="font-semibold text-indigo-700">DocNow</span>.
+      </p>
+      <button
+        onClick={() => { navigate('/login'); scrollTo(0, 0) }}
+        className="bg-indigo-700 text-white font-bold px-10 py-4 rounded-full shadow-lg hover:bg-indigo-800 transition duration-200 text-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      >
+        Create Account
+      </button>
+    </section>
   )
 }
 
