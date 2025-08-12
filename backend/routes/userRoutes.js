@@ -1,7 +1,8 @@
 import express from 'express';
-import { registerUser,loginUser, getUserProfile,updateProfile,bookAppointment,listAppointment,cancelAppointment} from '../controllers/userController.js';
+import { registerUser,loginUser, getUserProfile,updateProfile,bookAppointment,listAppointment,cancelAppointment,payment,verifyRazorpayPayment} from '../controllers/userController.js';
 import authUser from '../middlewares/authUser.js';
 import upload from '../middlewares/multer.js';
+import { verify } from 'jsonwebtoken';
 
 const userRouter = express.Router();
 
@@ -13,5 +14,7 @@ userRouter.post('/update-profile',upload.single('image'),authUser,updateProfile)
 userRouter.post('/book-appointment',authUser,bookAppointment);
 userRouter.get('/list-appointments', authUser, listAppointment);
 userRouter.post('/cancel-appointment', authUser, cancelAppointment);
+userRouter.post('/payment-razorpay', authUser, payment);
+userRouter.post('/verify-razorpay', authUser, verifyRazorpayPayment);
 
 export default userRouter;
