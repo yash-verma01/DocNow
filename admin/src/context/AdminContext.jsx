@@ -58,6 +58,20 @@ export const AdminContext = createContext();
         }
     };
 
+    const appointmentCancel = async (appointmentId) => {
+        try {
+            const {data} = await axios.post(`${backendUrl}/api/admin/cancel-appointment`, { appointmentId }, { headers: { atoken } });
+            if (data.success) {
+                toast.success(data.message);
+                getAllAppointments(); // Refresh the list of appointments after cancellation
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            console.error("Error cancelling appointment:", error);
+        }
+    };
+
     const value = {
         atoken,
         setAToken,
@@ -67,7 +81,8 @@ export const AdminContext = createContext();
         changeAvailability,
         appointments,
         getAllAppointments,
-        setAppointments
+        setAppointments,
+        appointmentCancel
     };
     return (
         <AdminContext.Provider value={value}>

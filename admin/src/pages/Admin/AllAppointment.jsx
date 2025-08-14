@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import cancel_icon from "../../assets/cancel_icon.svg";
 
 const AllAppointment = () => {
-  const { getAllAppointments, appointments, atoken } = useContext(AdminContext);
+  const { getAllAppointments, appointments, atoken , appointmentCancel} = useContext(AdminContext);
   const { calculateAge , currency } = useContext(AppContext);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const AllAppointment = () => {
 
             {/* Fees */}
             <p>{currency}{item.amount || '-'}</p>
-            {item.cancelled?<p className='text-xs text-red-600 font-medium'>Cancelled</p>:<img className="w-10 cursor-pointer"src={cancel_icon} alt="" />}
+            {item.cancelled?<p className='text-xs text-red-600 font-medium'>Cancelled</p>:<img  onClick={() => appointmentCancel(item._id)} className="w-10 cursor-pointer"src={cancel_icon} alt="" />}
 
             </div>
         ))}
