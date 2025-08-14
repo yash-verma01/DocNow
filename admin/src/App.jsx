@@ -10,13 +10,14 @@ import Dashboard from './pages/Admin/Dashboard.jsx';
 import AllAppointment from './pages/Admin/AllAppointment.jsx';
 import AddDoctor from './pages/Admin/AddDoctor.jsx';
 import DoctorLists from './pages/Admin/DoctorLists.jsx';
-
+import { DoctorContext } from './context/DoctorContext.jsx';
 
 
 const App = () => {
   const { atoken } = useContext(AdminContext)
+  const { dtoken } = useContext(DoctorContext)
 
-  return atoken ? (
+  return atoken || dtoken? (
     <div >
       <ToastContainer />
       <Navbar />
