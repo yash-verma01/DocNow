@@ -3,7 +3,9 @@ import bcrypt from "bcrypt"
 import {v2 as cloudinary} from "cloudinary"
 import upload from "../middlewares/multer.js"
 import doctorModel from "../models/doctorModel.js"
+import appointmentModel from "../models/appointmentModel.js"
 import jwt from 'jsonwebtoken'
+import userModel from "../models/userModel.js"
 
 // add doctor
 const addDoctor = async (req,res) => {
@@ -88,5 +90,16 @@ const allDoctors = async (req, res) => {
     }
 }
 
+//api to get all appointments
 
-export {addDoctor,loginAdmin, allDoctors}
+const appointmentsAdmin = async (req, res) => {
+    try {
+        const appointments = await appointmentModel.find({})
+        res.json({success: true, appointments});
+    } catch (error) {
+        console.log(error);
+        res.json({success: false, message: error.message});
+    }
+}
+
+export {addDoctor,loginAdmin, allDoctors, appointmentsAdmin}
