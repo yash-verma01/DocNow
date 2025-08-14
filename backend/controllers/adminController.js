@@ -139,6 +139,26 @@ const appointmentCancel = async (req, res) => {
     }
 };
 
+//api to get admin dashboard
+const adminDashboard=async (req, res) => { 
+    try {
+        const totalDoctors = await doctorModel.find({});
+        const totalUser=await userModel.find({});
+        const totalAppointments = await appointmentModel.find({});
+        const dashData={
+            doctors: totalDoctors.length,
+            patients: totalUser.length,
+            appointments: totalAppointments.length,
+            latestAppointments: totalAppointments.reverse().slice(0, 5),
+        }
+        res.json({
+            success: true,
+            dashData
+        });
+    } catch (error) {
+        console.error("Error in adminDashboard:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+};
 
-
-export {addDoctor,loginAdmin, allDoctors, appointmentsAdmin, appointmentCancel}
+export {addDoctor,loginAdmin, allDoctors, appointmentsAdmin, appointmentCancel, adminDashboard }
