@@ -97,4 +97,66 @@ const appointmentCancel = async (req, res) => {
   }
 };
 
-export { changeAvailability, doctorList, loginDoctor, doctorAppointments, appointmentComplete, appointmentCancel }
+const doctorDashboard = async (req, res) => {
+  try {
+    const docId = req.docId; // get from middleware
+    const appointments = await appointmentModel.find({ docId });
+    let learning = 0;
+    appointments.map((item) => {
+      if (item.isCompleted || item.payment) {
+        learning += item.amount;
+      }
+    });
+    let patients = [];
+    appointments.map((item) => {
+      if (!patients.includes(item.userId)) {
+        patients.push(item.userId);
+      }
+    });
+    const dashData = {
+        earnings: learning,
+        patients: patients.length,
+        appointments: appointments.length,
+        latestAppointments: appointments.reverse().slice(0, 5),
+
+    }
+    res.json({ success: true, dashData });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+//to get doctor dashboard data doctor profile
+
+const doctorProfile=async (req, res) => {
+  try {
+    const docId = req.docId; // get from middleware
+    const profileData = await doctorModel.findById(docId).select('-password');
+    if (!profileData) {
+      return res.json({ success: false, message: "Doctor not found" });
+    }
+    res.json({ success: true, profileData });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+
+//update doctor profileform doctor panel
+
+
+const updateDoctorProfile = async (req, res) => {
+  try {
+    const docId = req.docId; // get from middleware
+    const{fees,address,available}=req.body
+    await doctorModel.findByIdAndUpdate(docId, { fees, address, available });
+    res.json({ success: true, message: "Profile updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+export { changeAvailability, doctorList, loginDoctor, doctorAppointments, appointmentComplete, appointmentCancel, doctorDashboard, doctorProfile, updateDoctorProfile }
