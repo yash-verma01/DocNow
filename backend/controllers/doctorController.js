@@ -1,6 +1,7 @@
 import doctorModel from "../models/doctorModel.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import appointmentModel from "../models/appointmentModel.js"
 
 
 const changeAvailability = async (req, res) => {
@@ -46,4 +47,54 @@ const loginDoctor = async (req, res) => {
     }
 }
 
-export { changeAvailability, doctorList, loginDoctor }
+//api to get doctor appointment for doctor panel
+
+const doctorAppointments = async (req, res) => {
+    try {
+        const appointments = await appointmentModel.find({ docId: req.docId });
+        res.json({ success: true, appointments });
+    } catch (error) {
+        console.error(error);
+        res.json({ success: false, message: "Internal Server Error" });
+    }
+};
+
+const appointmentComplete = async (req, res) => {
+  try {
+    const {  appointmentId } = req.body;
+    const docId = req.docId; // get from middleware
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (appointmentData && appointmentData.docId == docId) {
+      await appointmentModel.findByIdAndUpdate(appointmentId, { isCompleted: true });
+      return res.json({ success: true, message: 'Appointment Completed' });
+    } else {
+      return res.json({ success: false, message: 'Mark Failed' });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const appointmentCancel = async (req, res) => {
+  try {
+    const {appointmentId } = req.body;
+    const docId = req.docId; // get from middleware
+
+    const appointmentData = await appointmentModel.findById(appointmentId);
+
+    if (appointmentData && appointmentData.docId === docId) {
+      await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+      return res.json({ success: true, message: 'Appointment Cancelled' });
+    } else {
+      return res.json({ success: false, message: 'Cancelation Failed' });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { changeAvailability, doctorList, loginDoctor, doctorAppointments, appointmentComplete, appointmentCancel }

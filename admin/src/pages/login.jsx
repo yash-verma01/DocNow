@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { AdminContext } from '../context/AdminContext.jsx'
 import { toast } from 'react-toastify'
 import { DoctorContext } from '../context/DoctorContext.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [state, setState] = useState('Admin')
@@ -12,6 +13,7 @@ const Login = () => {
     const { backendUrl, setAToken } = useContext(AdminContext)
     const {dtoken,setDToken} = useContext(DoctorContext)
 
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -20,6 +22,8 @@ const Login = () => {
                 if (data.success) {
                     localStorage.setItem('atoken', data.token)
                     setAToken(data.token)
+                    navigate('/admin-dashboard'); // ✅ Login ke baad redirect
+
                 }
                 else {
                     toast.error(data.message)
