@@ -64,6 +64,8 @@ export const AdminContext = createContext();
             const {data} = await axios.post(`${backendUrl}/api/admin/cancel-appointment`, { appointmentId }, { headers: { atoken } });
             if (data.success) {
                 toast.success(data.message);
+       
+
                 getAllAppointments(); // Refresh the list of appointments after cancellation
             } else {
                 toast.error(data.message);
