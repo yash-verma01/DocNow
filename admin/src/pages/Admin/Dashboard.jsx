@@ -5,21 +5,18 @@ import React, { useContext, useEffect } from 'react';
 import { DoctorContext } from '../../context/DoctorContext';
 import { assets } from '../../assets/assets';
 import { AppContext } from '../../context/AppContext';
+import cancel_icon from "../../assets/cancel_icon.svg";
+import { AdminContext } from '../../context/AdminContext';
 
 const DoctorDashboard = () => {
-    const { dashData, getDashboardData, dtoken, appointmentCancel } = useContext(DoctorContext);
+    const { dashData, getDashData, atoken, appointmentCancel } = useContext(AdminContext);
     const { currency } = useContext(AppContext);
 
     useEffect(() => {
-        if (dtoken) {
-            getDashboardData();
+        if (atoken) {
+            getDashData();
         }
-    }, [dtoken]);
-
-    // Agar data abhi nahi aaya to loading dikhado
-    if (!dashData) {
-        return <p className="m-5">Loading dashboard...</p>;
-    }
+    }, [atoken]);
 
     return (
         <div className="m-5">
@@ -68,16 +65,7 @@ const DoctorDashboard = () => {
                             </p>
                             <p className="text-gray-500">{item.slotDate}</p>
                         </div>
-                        {item.cancelled ? (
-                            <p className="text-xs text-red-600 font-medium">Cancelled</p>
-                        ) : (
-                            <img
-                                onClick={() => appointmentCancel(item._id)}
-                                className="w-10 cursor-pointer"
-                                src={assets.cancel_icon}
-                                alt=""
-                            />
-                        )}
+                        {item.cancelled?<p className='text-xs text-red-600 font-medium'>Cancelled</p>:item.isCompleted?<p className='text-xs text-green-600 font-medium'>Completed</p>:<img  onClick={() => appointmentCancel(item._id)} className="w-10 cursor-pointer"src={cancel_icon} alt="" />}
                     </div>
                 ))}
             </div>

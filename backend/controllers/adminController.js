@@ -151,6 +151,7 @@ const adminDashboard=async (req, res) => {
             appointments: totalAppointments.length,
             latestAppointments: totalAppointments.reverse().slice(0, 5),
         }
+         console.log(dashData);
         res.json({
             success: true,
             dashData

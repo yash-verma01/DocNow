@@ -66,7 +66,7 @@ const AllAppointment = () => {
 
             {/* Fees */}
             <p>{currency}{item.amount || '-'}</p>
-            {item.cancelled?<p className='text-xs text-red-600 font-medium'>Cancelled</p>:<img  onClick={() => appointmentCancel(item._id)} className="w-10 cursor-pointer"src={cancel_icon} alt="" />}
+            {item.cancelled?<p className='text-xs text-red-600 font-medium'>Cancelled</p>:item.isCompleted?<p className='text-xs text-green-600 font-medium'>Completed</p>:<img  onClick={() => appointmentCancel(item._id)} className="w-10 cursor-pointer"src={cancel_icon} alt="" />}
 
             </div>
         ))}
