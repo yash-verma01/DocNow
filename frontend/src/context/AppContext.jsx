@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 export const AppContext = createContext()
 const currSymbol = '$'
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000'
 console.log("Backend URL:", backendUrl)
 
 const AppContextProvider = (props) => {
