@@ -10,7 +10,7 @@ export const AdminContext = createContext();
     const[doctors, setDoctors] = useState([]);
     const[appointments, setAppointments] = useState([]);
     const [dashData,setDashData] = useState(false);
-    const backendUrl = "https://docnow-backend-48fq.onrender.com";
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
 
     const getAllDoctors = async () => {
         try {
