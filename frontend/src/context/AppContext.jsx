@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 export const AppContext = createContext()
 const currSymbol = '$'
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+const backendUrl = 'https://docnow-backend-48fq.onrender.com'
 console.log("Backend URL:", backendUrl)
 
 const AppContextProvider = (props) => {

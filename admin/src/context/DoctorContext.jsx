@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 export const DoctorContext = createContext();
 
 const DoctorContextProvider = ({ children }) => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000';
+    const backendUrl = "https://docnow-backend-48fq.onrender.com";
     const [appointments, setAppointments] = useState([]);
     const [dtoken, setDToken] = useState(localStorage.getItem('dtoken') ? localStorage.getItem('dtoken') : '');
     const [dashData, setDashData] = useState({
