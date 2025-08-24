@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
 import TopDoctors from '../components/TopDoctors'
-import Speciality from '../components/speciality'
+import Speciality from '../components/Speciality'
 import Banner from '../components/Banner'
 const Home = () => {
   return (
