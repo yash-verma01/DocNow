@@ -3,7 +3,7 @@ import Login from './pages/login.jsx'
 import { ToastContainer, toast } from 'react-toastify';
 import { useContext } from 'react';
 import { AdminContext } from './context/AdminContext.jsx';
-import Navbar from './components/navbar.jsx';
+import Navbar from './components/Navbar.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Admin/Dashboard.jsx';
